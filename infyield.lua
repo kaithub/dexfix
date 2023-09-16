@@ -4435,6 +4435,7 @@ CMDs[#CMDs + 1] = {NAME = 'firetouchinterests / touchinterests [name]', DESC = '
 CMDs[#CMDs + 1] = {NAME = 'noproximitypromptlimits / nopplimits', DESC = 'Sets all proximity prompts MaxActivationDistance to math.huge'}
 CMDs[#CMDs + 1] = {NAME = 'fireproximityprompts / firepp [name]', DESC = 'Uses all proximity prompts in a game or uses the optional name'}
 CMDs[#CMDs + 1] = {NAME = 'instantproximityprompts / instantpp', DESC = 'Disable the cooldown for proximity prompts'}
+CMDs[#CMDs + 1] = {NAME = 'showall / unhideall', DESC = 'Shows all players'}
 CMDs[#CMDs + 1] = {NAME = 'uninstantproximityprompts / uninstantpp', DESC = 'Undo the cooldown removal'}
 CMDs[#CMDs + 1] = {NAME = 'tpunanchored / tpua [plr]', DESC = 'Teleports unanchored parts to a player'}
 CMDs[#CMDs + 1] = {NAME = 'animsunanchored / freezeua', DESC = 'Freezes unanchored parts'}
@@ -4498,7 +4499,7 @@ CMDs[#CMDs + 1] = {NAME = 'loopoof', DESC = 'Loops everyones character sounds (e
 CMDs[#CMDs + 1] = {NAME = 'unloopoof', DESC = 'Stops the oof chaos'}
 CMDs[#CMDs + 1] = {NAME = 'muteboombox [plr]', DESC = 'Mutes someones boombox'}
 CMDs[#CMDs + 1] = {NAME = 'unmuteboombox [plr]', DESC = 'Unmutes someones boombox'}
-CMDs[#CMDs + 1] = {NAME = 'hitbox [plr] [size]', DESC = 'Expands the hitbox for players HumanoidRootPart (default is 1)'}
+CMDs[#CMDs + 1] = {NAME = 'oldhitbox [plr] [size]', DESC = 'Expands the hitbox for players HumanoidRootPart (default is 1)'}
 CMDs[#CMDs + 1] = {NAME = 'headsize [plr] [size]', DESC = 'Expands the head size for players Head (default is 1)'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'reset', DESC = 'Resets your character normally'}
@@ -4617,6 +4618,7 @@ CMDs[#CMDs + 1] = {NAME = 'unequiptools', DESC = 'Unequips every tool you are cu
 CMDs[#CMDs + 1] = {NAME = 'removespecifictool [name]', DESC = 'Automatically remove a specific tool from your inventory'}
 CMDs[#CMDs + 1] = {NAME = 'unremovespecifictool [name]', DESC = 'Stops removing a specific tool from your inventory'}
 CMDs[#CMDs + 1] = {NAME = 'clearremovespecifictool', DESC = 'Stop removing all specific tools from your inventory'}
+CMDs[#CMDs + 1] = {NAME = 'newhitbox / nhb', DESC = 'Loads a great universal hitbox expander script'}
 CMDs[#CMDs + 1] = {NAME = 'reach [num]', DESC = 'Increases the hitbox of your held tool'}
 CMDs[#CMDs + 1] = {NAME = 'unreach / noreach', DESC = 'Turns off reach'}
 CMDs[#CMDs + 1] = {NAME = 'grippos [X Y Z]', DESC = 'Changes your current tools grip position'}
@@ -11198,6 +11200,9 @@ addcmd('hideall',{},function(args, speaker)
     end
     end
 end)
+addcmd('showall',{'unhideall'},function(args, speaker)
+	_G.HideAll = false
+end)
 addcmd('joinlogs',{'jlogs'},function(args, speaker)
 	chat.Visible = false
 	join.Visible = true	
@@ -11586,6 +11591,10 @@ addcmd('unxray',{'noxray'},function(args, speaker)
 	x(transparent)
 end)
 
+addcmd('newhitbox',{'nhb'},function(args, speaker)
+	loadstring(game:HttpGet("https://pastebin.com/raw/0dnNLQgG"))()
+end)
+
 addcmd('togglexray',{},function(args, speaker)
 	transparent=not transparent
 	x(transparent)
@@ -11741,7 +11750,7 @@ addcmd('headsize',{},function(args, speaker)
 	end
 end)
 
-addcmd('hitbox',{},function(args, speaker)
+addcmd('oldhitbox',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
 	for i,v in pairs(players) do
 		if Players[v] ~= speaker and Players[v].Character:FindFirstChild('HumanoidRootPart') then
